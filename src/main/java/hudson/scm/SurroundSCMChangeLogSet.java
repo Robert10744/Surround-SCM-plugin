@@ -8,9 +8,7 @@ import hudson.tasks.Mailer;
 import org.kohsuke.stapler.export.Exported;
 
 import java.io.IOException;
-import java.util.ArrayList;
-import java.util.Collection;
-import java.util.Iterator;
+import java.util.*;
 
 public final class SurroundSCMChangeLogSet extends ChangeLogSet<SurroundSCMChangeLogSetEntry>
 {
@@ -57,7 +55,9 @@ public final class SurroundSCMChangeLogSet extends ChangeLogSet<SurroundSCMChang
       this.version = version;
       this.action = action;
       this.date = date;
-      this.user = User.get(userName);
+      Map<String,String> map = new HashMap<String,String>();
+      map.put("EMail", email);
+      this.user = User.get(userName,true, map);
 
       // Check to see if we were able to parse an email address...
       if(!email.isEmpty())
